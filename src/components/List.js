@@ -1,13 +1,19 @@
-import React from "react";
+import React  , {useState , useEffect}from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { BsTrash } from "react-icons/bs";
 import { baseURL } from "../utils/constant";
 import axios from "axios";
 const List = ({ id, task, setUpdateUI, updateMode }) => {
+  const [updateUI , changeUpdateUI] = useState(0);
+
+  useEffect(()=>{
+      setUpdateUI((prevState) => !prevState);    
+  },[updateUI])
+  
   const removeTask = () => {
     axios.delete(`${baseURL}/delete/${id}`).then((res) => {
       console.log(res);
-      setUpdateUI((prevState) => !prevState);
+     changeUpdateUI(!updateUI);
     });
   };
   return (
